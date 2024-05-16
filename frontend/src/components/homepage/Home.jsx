@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import PostCard from "../post/PostCard";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [postData, setPostData] = useState([]);
+  // create instance useNavigate
+  const navigate = useNavigate();
 
   // handle fetch post from server
   const fetchPost = async () => {
@@ -22,6 +25,14 @@ const Home = () => {
   useEffect(() => {
     fetchPost();
   }, []);
+
+  // handle single post
+  const handleSinglePost = (e) => {
+    const id = e.target.id;
+
+    // navigate to single post page
+    navigate(`/post/${id}`)
+  }
 
   return (
     <div>
@@ -60,7 +71,7 @@ const Home = () => {
       {/* render post list here */}
       <div className="container grid">
         {postData.map((post) => (
-          <PostCard postObj={post}  key={post._id}/>
+          <PostCard postObj={post}  key={post._id} func={(e) => handleSinglePost(e)}/>
         ))}
       </div>
     </div>

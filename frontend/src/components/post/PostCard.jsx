@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-const PostCard = ({ postObj }) => {
+const PostCard = ({ postObj, func }) => {
   const { _id, title, content, coverImg } = postObj;
   const styles = {
     card: {
@@ -41,9 +41,9 @@ const PostCard = ({ postObj }) => {
 
       <div>
         <h4 style={styles.title}>{title || ""}</h4>
-        <p>{content || ""}</p>
+        <p>{content.slice(0, 100) + "...." || ""}</p>
 
-        <button style={styles.btn}>Read more...</button>
+        <button id={_id} style={styles.btn} onClick={func}>Read more...</button>
       </div>
     </div>
   );
@@ -56,6 +56,7 @@ PostCard.propTypes = {
     coverImg: PropTypes.string,
     title: PropTypes.string,
   }),
+  func: PropTypes.func,
 };
 
 export default PostCard;
